@@ -11,8 +11,8 @@ program
   .version('1.0.0')
   .argument('<filepath1>', 'путь до первого файла')
   .argument('<filepath2>', 'путь до второго файла')
-  .option('-f, --format <type>', 'output format')
-  .action((filepath1, filepath2, options) => {
+  .option('-f, --format <type>', 'output format', 'stylish')
+  .action((filepath1, filepath2) => {
     console.log(gendiff(filepath1, filepath2))
   })
 

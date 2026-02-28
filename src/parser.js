@@ -1,11 +1,12 @@
-import fs from 'fs'
-import path from 'path'
+import yaml from 'js-yaml'
 
-const getAbsolutePath = filePath => path.resolve(process.cwd(), filePath)
-const readFile = filePath => fs.readFileSync(filePath, 'utf-8')
-
-export const parser = (filePath) => {
-  const fileAbsolutePath = getAbsolutePath(filePath)
-  const file = readFile(fileAbsolutePath)
-  return JSON.parse(file)
+export const parser = (data, format) => {
+  if(format === '.json')
+    {
+        return JSON.parse(data)
+    }
+    else if (format === '.yaml' || format === '.yml') {
+        return yaml.load(data)
+    }
+    throw new Error(`unknown format: ${format}`)
 }
