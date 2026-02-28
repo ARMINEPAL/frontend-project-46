@@ -2,7 +2,7 @@ import { parser } from './parser.js'
 import fs from 'fs'
 import path from 'path'
 import buildTree from './treeBuilder.js'
-import format from './formater.js'
+import format from './formatters/index.js'
 
 const getAbsolutePath = filePath => path.resolve(process.cwd(), filePath)
 const readFile = filePath => fs.readFileSync(getAbsolutePath(filePath), 'utf-8')

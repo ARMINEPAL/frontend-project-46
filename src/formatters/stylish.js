@@ -1,26 +1,8 @@
 import stringify from "./stringify.js";
-import _ from 'lodash'
+import { getType, getKey, getValue, getOldValue, getNewValue, getIndent, spaceCount } from "./utils.js";
 
-const getType = (tree) => tree.type
 
-const getKey = (tree) => tree.key
-
-const getValue = (tree) => tree.value
-
-const getOldValue = tree => tree.value1
-
-const getNewValue = (tree) => tree.value2
-
-const spaceCount = 4 
-const specialSymbols = 2
-
-const getIndent = (depth, type = 'unchanged') => {
-    if (type === 'added' || type === 'removed') return ' '.repeat(spaceCount * depth - specialSymbols)
-        return ' '.repeat(spaceCount * depth)
-}
-
-const format = (tree, formatName = 'stylish', depth = 1) => {
-    if (formatName === 'stylish') {
+const stylish = (tree, depth = 1) => {
         const result = tree.reduce((acc, elem) => {
             const type = getType(elem)
             const key = getKey(elem)
@@ -42,7 +24,7 @@ const format = (tree, formatName = 'stylish', depth = 1) => {
                     return `${acc}${getIndent(depth, 'removed')}- ${key}: ${oldValue}\n${getIndent(depth, 'added')}+ ${key}: ${newValue}\n`
 
                     case 'nested':
-                        return `${acc}${getIndent(depth)}${key}: ${format(elem.children, formatName, depth + 1)}\n`                    
+                        return `${acc}${getIndent(depth)}${key}: ${stylish(elem.children, depth + 1)}\n`                    
 
                     default:
                         return acc
@@ -52,6 +34,5 @@ const format = (tree, formatName = 'stylish', depth = 1) => {
         const bracketIndent = ' '.repeat(depth * spaceCount - spaceCount)
       return `{\n${result}${bracketIndent}}`
     }
-}
 
-export default format
+    export default stylish
