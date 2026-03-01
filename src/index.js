@@ -4,8 +4,8 @@ import path from 'path'
 import buildTree from './treeBuilder.js'
 import format from './formatters/index.js'
 
-const readFile = (path) => {
-  const fullPath = path.resolve(process.cwd(), path)
+const readFile = (filepath) => {
+  const fullPath = path.resolve(process.cwd(), filepath)
   const data = fs.readFileSync(fullPath).toString()
   return data
 }
