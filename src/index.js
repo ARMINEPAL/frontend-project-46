@@ -1,15 +1,18 @@
-import { parser } from './parser.js'
+import { parse } from './parser.js'
 import fs from 'fs'
 import path from 'path'
 import buildTree from './treeBuilder.js'
 import format from './formatters/index.js'
 
-const getAbsolutePath = filePath => path.resolve(process.cwd(), filePath)
-const readFile = filePath => fs.readFileSync(getAbsolutePath(filePath), 'utf-8')
+const readFile = (path) => {
+  const fullPath = path.resolve(process.cwd(), path)
+  const data = fs.readFileSync(fullPath).toString()
+  return data
+}
 
 export default (filePath1, filePath2, formatName = 'stylish') => {
-  const data1 = parser(readFile(filePath1), path.extname(filePath1))
-  const data2 = parser(readFile(filePath2), path.extname(filePath2))
+  const data1 = parse(readFile(filePath1), path.extname(filePath1))
+  const data2 = parse(readFile(filePath2), path.extname(filePath2))
   const tree = buildTree(data1, data2)
   return format(tree, formatName) // if( type: 'nested') применяем рекурсию
 }
