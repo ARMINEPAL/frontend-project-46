@@ -22,15 +22,15 @@ test('gendiff json', () => {
 })
 
 test('gendiff yml', () => {
-  expect(diff(getFixturePath('file.yml'), getFixturePath('file2.yml'), 'stylish')).toBe(resultStylish)
+  expect(diff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'stylish')).toBe(resultStylish)
   expect(diff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'plain')).toBe(resultPlain)
-  expect(diff(getFixturePath('filepath1.yml'), getFixturePath('filepath2.yml'), 'json')).toBe(resultJson)
-  expect(diff(getFixturePath('filepath1.yml'), getFixturePath('filepath2.yml'))).toBe(resultStylish)
+  expect(diff(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'json')).toBe(resultJson)
+  expect(diff(getFixturePath('file1.yml'), getFixturePath('file2.yml'))).toBe(resultStylish)
 })
 
 test('gendiff yaml', () => {
-  expect(diff(getFixturePath('file.yaml'), getFixturePath('file2.yaml'), 'stylish')).toBe(resultStylish)
-  expect(diff(getFixturePath('filepath1.yaml'), getFixturePath('filepath2.yaml'), 'plain')).toBe(resultPlain)
-  expect(diff(getFixturePath('filepath1.yaml'), getFixturePath('filepath2.yaml'), 'json')).toBe(resultJson)
-  expect(diff(getFixturePath('filepath1.yaml'), getFixturePath('filepath2.yaml'))).toBe(resultStylish)
+  expect(diff(getFixturePath('file1.yaml'), getFixturePath('file2.yaml'), 'stylish')).toBe(resultStylish)
+  expect(diff(getFixturePath('file1.yaml'), getFixturePath('file2.yaml'), 'plain')).toBe(resultPlain)
+  expect(diff(getFixturePath('file1.yaml'), getFixturePath('file2.yaml'), 'json')).toBe(resultJson)
+  expect(diff(getFixturePath('file1.yaml'), getFixturePath('file2.yaml'))).toBe(resultStylish)
 })
