@@ -1,48 +1,44 @@
-import { getType, getKey, getValue, getOldValue, getNewValue} from "./utils.js";
+import { getType, getKey, getValue, getOldValue, getNewValue } from './utils.js'
 import _ from 'lodash'
 
 const formatValue = (value) => {
-    if (_.isObject(value)) {
-        return '[complex value]'
-    }
+  if (_.isObject(value)) {
+    return '[complex value]'
+  }
 
-    if (typeof value === 'string') {
-        return `'${value}'`
-    }
+  if (typeof value === 'string') {
+    return `'${value}'`
+  }
 
-    return String(value)
+  return String(value)
 }
 
 const plain = (tree, path = '') => {
-    const result = tree.flatMap((node) => {
-        const key = getKey(node)
-        const value = formatValue(getValue(node))
-        const oldValue = formatValue(getOldValue(node))
-        const newValue = formatValue(getNewValue(node))
-        const type = getType(node)
+  const result = tree.flatMap((node) => {
+    const key = getKey(node)
+    const value = formatValue(getValue(node))
+    const oldValue = formatValue(getOldValue(node))
+    const newValue = formatValue(getNewValue(node))
+    const type = getType(node)
 
-        const property = path ? `${path}.${key}` : key
-        switch (type) {
-            case 'added':
-                return `Property '${property}' was added with value: ${value}`;
+    const property = path ? `${path}.${key}` : key
+    switch (type) {
+      case 'added':
+        return `Property '${property}' was added with value: ${value}`
 
-            case 'removed':
-                return `Property '${property}' was removed`;
+      case 'removed':
+        return `Property '${property}' was removed`
 
-            case 'unchanged':
-                return [];
+      case 'unchanged':
+        return []
 
-            case 'changed':
-                return `Property '${property}' was updated. From ${oldValue} to ${newValue}`;
+      case 'changed':
+        return `Property '${property}' was updated. From ${oldValue} to ${newValue}`
 
-            case 'nested':
-                return plain(node.children, property);
-
-            default:
-                return []
-        }
-    })
-    return result.join('\n')
+      case 'nested':
+        return plain(node.children, property)
+    }
+  })
+  return result.join('\n')
 }
-    export default plain
-
+export default plain
