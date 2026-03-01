@@ -23,17 +23,6 @@ YAML / YML
 
 3. Json
 
-Установка:
-
-git clone https://github.com/ARMINEPAL/frontend-project-46.git
-cd frontend-project-46
-make install
-npm link
-
-Использование:
-
-gendiff <filepath1> <filepath2>
-
 Демонстрация:
 
 Сравнение плоских объектов (формат json) в stylish формате:
