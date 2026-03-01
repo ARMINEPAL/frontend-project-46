@@ -1,5 +1,5 @@
 import stringify from './stringify.js'
-import { getType, getKey, getValue, getOldValue, getNewValue, getIndent, spaceCount } from './utils.js'
+import { getType, getKey, getValue, getOldValue, getNewValue, getIndent, getChildren, spaceCount } from './utils.js'
 
 const stylish = (tree, depth = 1) => {
   const result = tree.reduce((acc, elem) => {
@@ -23,7 +23,10 @@ const stylish = (tree, depth = 1) => {
         return `${acc}${getIndent(depth, 'removed')}- ${key}: ${oldValue}\n${getIndent(depth, 'added')}+ ${key}: ${newValue}\n`
 
       case 'nested':
-        return `${acc}${getIndent(depth)}${key}: ${stylish(elem.children, depth + 1)}\n`
+        return `${acc}${getIndent(depth)}${key}: ${stylish(getChildren(elem), depth + 1)}\n`
+
+      default:
+        throw new Error(`Unknown type: '${type}'!`)
     }
   }, '')
   const bracketIndent = ' '.repeat(depth * spaceCount - spaceCount)

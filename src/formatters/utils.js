@@ -8,6 +8,8 @@ export const getOldValue = tree => tree.value1
 
 export const getNewValue = tree => tree.value2
 
+export const getChildren = tree => tree.children
+
 export const spaceCount = 4
 
 const specialSymbols = 2

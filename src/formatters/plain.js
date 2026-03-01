@@ -1,4 +1,4 @@
-import { getType, getKey, getValue, getOldValue, getNewValue } from './utils.js'
+import { getType, getKey, getValue, getOldValue, getNewValue, getChildren } from './utils.js'
 import _ from 'lodash'
 
 const formatValue = (value) => {
@@ -36,7 +36,10 @@ const plain = (tree, path = '') => {
         return `Property '${property}' was updated. From ${oldValue} to ${newValue}`
 
       case 'nested':
-        return plain(node.children, property)
+        return plain(getChildren(node), property)
+
+      default:
+        throw new Error(`Unknown type: '${type}'!`)
     }
   })
   return result.join('\n')
