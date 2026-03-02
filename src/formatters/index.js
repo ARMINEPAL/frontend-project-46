@@ -3,7 +3,15 @@ import plain from './plain.js'
 import json from './json.js'
 
 export default (tree, formatName = 'stylish') => {
-  if (formatName === 'stylish') return stylish(tree)
-  if (formatName === 'plain') return plain(tree)
-  if (formatName === 'json') return json(tree)
+  switch (formatName) {
+    case 'stylish':
+      return stylish(tree)
+    case 'plain':
+      return plain(tree)
+
+    case 'json':
+      return json(tree)
+    default:
+      throw new Error(`Unknown format: '${formatName}'!`)
+  }
 }
